@@ -48,7 +48,7 @@ default: 1\
 
 ## Delete
 
-Please be aware that your client might have used seeded content as a basis of some of real content, so you might accidentally delete some real content while using this command.
+Please be aware that your client/co-worker might have used seeded content as a basis of some of real content, so you might accidentally delete some real content while using this command.
 
 ### All
 
