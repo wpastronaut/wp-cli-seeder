@@ -6,7 +6,7 @@ Seeds dummy content into a WordPress installation for development purposes.
 
 ### Posts
 
-    wp seeder seed posts
+	wp seeder seed posts
 
 Seeds dummy posts.
 
@@ -48,6 +48,6 @@ Please be aware that your client might have used seeded content as a basis of so
 
 ### All
 
-    wp seeder delete all
+	wp seeder delete all
 
 Deletes all content seeded by this tool. 
