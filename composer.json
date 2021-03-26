@@ -1,0 +1,30 @@
+{
+	"name": "wpastronaut/wp-cli-seeder",
+	"type": "wp-cli-package",
+	"description": "Seed dummy content into your WordPress installation for development.",
+	"homepage": "https://github.com/wpastronaut/wp-cli-seeder",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Natanael Sinisalo",
+			"email": "natanael@wpastronaut.com",
+			"homepage": "https://www.wpastronaut.com"
+		}
+	],
+	"require": {
+		"fakerphp/faker": "^1.13"
+	},
+	"autoload": {
+		"files": [
+			"wp-cli-seeder.php"
+		],
+		"psr-4": {
+			"WPastronaut\\WP_CLI\\Seeder\\": "src/"
+		}
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"support": {
+		"issues": "https://github.com/wpastronaut/wp-cli-seeder/issues"
+	}
+}
