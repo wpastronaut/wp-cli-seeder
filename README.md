@@ -2,6 +2,10 @@
 
 Seeds dummy content into a WordPress installation for development purposes.
 
+## Install
+
+	wp package install git@github.com:wpastronaut/wp-cli-seeder.git
+
 ## Seed
 
 ### Posts
