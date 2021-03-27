@@ -14,7 +14,7 @@ Seeds dummy content into a WordPress installation for development purposes.
 
 Seeds dummy posts.
 
-### Options
+#### Options
 
 **[--count=&#x3C;number&#x3E;]**\
 How many?\
