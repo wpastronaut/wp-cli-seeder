@@ -84,7 +84,8 @@ class Seed_Command {
 				}
 			}
 
-			$post_args['post_title'] = $this->faker->sentence( $faker->numberBetween( 3, 7 ) );
+			$post_args['post_title'] = $this->faker->sentence( $this->faker->numberBetween( 3, 7 ) );
+
 			$post_args['post_date'] = $this->faker->dateTimeBetween('-3 years')->format('Y-m-d H:i:m');
 			$post_args['post_parent'] = $current_parent;
 
