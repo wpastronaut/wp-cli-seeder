@@ -81,3 +81,17 @@ Please be aware that your client/co-worker might have used seeded content as a b
 	wp seeder delete all
 
 Deletes all content seeded by this tool. 
+
+### Posts
+
+	wp seeder delete posts
+
+Deletes posts seeded by this tool.
+
+#### Options
+
+**[--post_type=&#x3C;type&#x3E;]**\
+Post type.\
+\-\-\-\
+default: any\
+\-\-\-

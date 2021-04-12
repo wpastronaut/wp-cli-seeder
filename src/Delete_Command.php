@@ -12,6 +12,27 @@ class Delete_Command {
 		$this->deleteTerms( get_taxonomies() );
 	}
 
+	/**
+	 * Deletes seeded dummy posts.
+	 *
+	 * [--post_type=<type>]
+	 * : Post type.
+	 * ---
+	 * default: any
+	 * ---
+	*/
+	public function posts( $args, $assoc_args ) {
+		if( $assoc_args['post_type'] === 'any' ) {
+			$confirmation_message = 'Are you sure you want to delete all seeded posts from the site?';
+		} else {
+			$confirmation_message = sprintf( 'Are you sure you want to delete all seeded posts in the post type "%s" from the site?', $assoc_args['post_type'] );
+		}
+
+		\WP_CLI::confirm( $confirmation_message, $assoc_args );
+
+		$this->deletePosts( 'any' );
+	}
+
 	private function deletePosts( $post_type ) {
 		$deletable_post_ids = get_posts([
 			'post_type' => $post_type,
