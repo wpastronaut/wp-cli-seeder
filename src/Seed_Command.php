@@ -143,7 +143,7 @@ class Seed_Command {
 		$current_parent = 0;
 
 		foreach( range( 0, $assoc_args['count'] ) as $index ) {
-			$term_name = ucfirst( $this->faker->words( $this->faker->numberBetween( 3, 7 ), true ) );
+			$term_name = ucfirst( $this->faker->words( $this->faker->numberBetween( 1, 3 ), true ) );
 
 			if( term_exists( $term_name, $assoc_args['taxonomy'] ) ) {
 				continue;
