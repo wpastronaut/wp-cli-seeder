@@ -8,8 +8,13 @@ class Delete_Command {
 	public function all( $args, $assoc_args ) {
 		\WP_CLI::confirm( "Are you sure you want to delete all seeded data from the site?", $assoc_args );
 
+		$this->deletePosts( 'any' );
+		$this->deleteTerms( get_taxonomies() );
+	}
+
+	private function deletePosts( $post_type ) {
 		$deletable_post_ids = get_posts([
-			'post_type' => 'any',
+			'post_type' => $post_type,
 			'post_status' => 'any',
 			'posts_per_page' => '-1',
 			'fields' => 'ids',
@@ -20,6 +25,24 @@ class Delete_Command {
 
 		foreach( $deletable_post_ids as $post_id ) {
 			wp_delete_post( $post_id );
+
+			$progress->tick();
+		}
+
+		$progress->finish();
+	}
+
+	private function deleteTerms( $taxonomy ) {
+		$deletable_terms = get_terms([
+			'taxonomy' => $taxonomy,
+			'meta_key' => '_wpa_seeder_inserted_at',
+			'hide_empty' => false,
+		]);
+
+		$progress = Utils\make_progress_bar( 'Deleting seeded terms', count( $deletable_terms ) );
+
+		foreach( $deletable_terms as $term ) {
+			wp_delete_term( $term->term_id, $term->taxonomy );
 
 			$progress->tick();
 		}
