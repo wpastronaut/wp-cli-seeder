@@ -46,6 +46,32 @@ Max child depth for hierachial post types.\
 default: 1\
 \-\-\-
 
+### Terms
+
+	wp seeder seed terms
+
+Seeds dummy terms.
+
+#### Options
+
+**[--count=&#x3C;number&#x3E;]**\
+How many?\
+\-\-\-\
+default: 30\
+\-\-\-
+
+**[--taxonomy=&#x3C;taxonomy&#x3E;]**\
+Taxonomy.\
+\-\-\-\
+default: category\
+\-\-\-
+
+**[--max_depth=&#x3C;number&#x3E;]**\
+Max child depth for hierachial post types.\
+\-\-\-\
+default: 1\
+\-\-\-
+
 ## Delete
 
 Please be aware that your client/co-worker might have used seeded content as a basis of some of real content, so you might accidentally delete some real content while using this command.

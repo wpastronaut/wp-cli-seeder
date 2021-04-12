@@ -107,4 +107,77 @@ class Seed_Command {
 
 		$progress->finish();
 	}
+
+	/**
+	 * Seed dummy terms.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--count=<number>]
+	 * : How many terms do you need?
+	 * ---
+	 * default: 30
+	 * ---
+	 *
+	 * [--taxonomy=<taxonomy>]
+	 * : Taxonomy.
+	 * ---
+	 * default: category
+	 * ---
+	 *
+	 * [--max_depth=<number>]
+	 * : Max child depth for hierachial taxonomies.
+	 * ---
+	 * default: 1
+	 * ---
+	*/
+	public function terms( $args, $assoc_args ) {
+		if( ! taxonomy_exists( $assoc_args['taxonomy'] ) ) {
+			WP_CLI::error( sprintf( "Taxonomy %s doesn't exist", $assoc_args['taxonomy'] ) );
+		}
+
+		$progress = Utils\make_progress_bar( sprintf( 'Seeding terms for taxonomy: %s', $assoc_args['taxonomy'] ), $assoc_args['count'] );
+
+		$previous_term_id = 0;
+		$current_depth = 1;
+		$current_parent = 0;
+
+		foreach( range( 0, $assoc_args['count'] ) as $index ) {
+			$term_name = ucfirst( $this->faker->words( $this->faker->numberBetween( 3, 7 ), true ) );
+
+			if( term_exists( $term_name, $assoc_args['taxonomy'] ) ) {
+				continue;
+			}
+
+			if ( is_taxonomy_hierarchical( $assoc_args['taxonomy'] ) ) {
+				if ( Helpers::maybe_make_child() && $current_depth < $assoc_args['max_depth'] ) {
+					$current_parent = $previous_term_id;
+					$current_depth++;
+				} elseif ( Helpers::maybe_reset_depth() ) {
+					$current_depth  = 1;
+					$current_parent = 0;
+				}
+			}
+
+			$term_args = [
+				'parent' => $current_parent,
+				'description' => $this->faker->optional( '0.7', '' )->paragraph( $this->faker->numberBetween( 2, 6 ) ),
+			];
+			$term = wp_insert_term( $term_name, $assoc_args['taxonomy'], $term_args );
+
+			if( is_wp_error( $term ) ) {
+				WP_CLI::warning( $term );
+
+				continue;
+			}
+
+			$previous_term_id = $term['term_id'];
+
+			update_term_meta( $term['term_id'], '_wpa_seeder_inserted_at', time() );
+
+			$progress->tick();
+		}
+
+		$progress->finish();
+	}
 }
