@@ -72,6 +72,28 @@ Max child depth for hierachial post types.\
 default: 1\
 \-\-\-
 
+## Attach
+
+### Terms to posts
+
+	wp seeder attach terms-to-posts
+
+Attaches seeded terms to seeded posts.
+
+#### Options
+
+**[--post_type=&#x3C;type&#x3E;]**\
+Post type.\
+\-\-\-\
+default: post\
+\-\-\-
+
+**[--taxonomy=&#x3C;taxonomy&#x3E;]**\
+Taxonomy.\
+\-\-\-\
+default: category\
+\-\-\-
+
 ## Delete
 
 Please be aware that your client/co-worker might have used seeded content as a basis of some of real content, so you might accidentally delete some real content while using this command.
