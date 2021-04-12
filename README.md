@@ -81,3 +81,17 @@ Please be aware that your client/co-worker might have used seeded content as a b
 	wp seeder delete all
 
 Deletes all content seeded by this tool. 
+
+### Terms
+
+	wp seeder delete terms
+
+Deletes all terms seeded by this tool.
+
+#### Options
+
+**[--taxonomy=&#x3C;taxonomy&#x3E;]**\
+Taxonomy.\
+\-\-\-\
+default: any\
+\-\-\-

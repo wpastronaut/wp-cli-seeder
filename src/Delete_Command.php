@@ -12,6 +12,29 @@ class Delete_Command {
 		$this->deleteTerms( get_taxonomies() );
 	}
 
+	/**
+	 * Delete seeded terms.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--taxonomy=<taxonomy>]
+	 * : Taxonomy.
+	 * ---
+	 * default: any
+	 * ---
+	*/
+	public function terms( $args, $assoc_args ) {
+		if( $assoc_args['taxonomy'] === 'any' ) {
+			\WP_CLI::confirm( "Are you sure you want to delete all seeded terms from the site?", $assoc_args );
+
+			$this->deletePosts( get_taxonomies() );
+		} else {
+			\WP_CLI::confirm( sprintf( 'Are you sure you want to delete all seeded terms in the taxonomy "%s" from the site?', $assoc_args['taxonomy'] ), $assoc_args );
+
+			$this->deletePosts( $assoc_args['taxonomy'] );
+		}
+	}
+
 	private function deletePosts( $post_type ) {
 		$deletable_post_ids = get_posts([
 			'post_type' => $post_type,
