@@ -28,11 +28,11 @@ class Delete_Command {
 		if( $assoc_args['taxonomy'] === 'any' ) {
 			\WP_CLI::confirm( "Are you sure you want to delete all seeded terms from the site?", $assoc_args );
 
-			$this->deletePosts( get_taxonomies() );
+			$this->deleteTerms( get_taxonomies() );
 		} else {
 			\WP_CLI::confirm( sprintf( 'Are you sure you want to delete all seeded terms in the taxonomy "%s" from the site?', $assoc_args['taxonomy'] ), $assoc_args );
 
-			$this->deletePosts( $assoc_args['taxonomy'] );
+			$this->deleteTerms( $assoc_args['taxonomy'] );
 		}
 	}
 
