@@ -35,13 +35,7 @@ class Attach_Command {
 		}
 
 		$post_ids = Helpers::get_inserted_post_ids( $assoc_args['post_type'] );
-
-		$term_ids = get_terms([
-			'taxonomy' => $assoc_args['taxonomy'],
-			'hide_empty' => false,
-			'fields' => 'ids',
-			'meta_key' => '_wpa_seeder_inserted_at',
-		]);
+		$term_ids = Helpers::get_inserted_terms( $assoc_args['taxonomy'], 'ids' );
 
 		$progress = Utils\make_progress_bar( sprintf( 'Attaching terms from the taxonomy "%s" for the post type "%s"', $assoc_args['taxonomy'], $assoc_args['post_type'] ), $assoc_args['count'] );
 

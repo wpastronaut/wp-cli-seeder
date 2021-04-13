@@ -51,16 +51,12 @@ class Delete_Command {
 	}
 
 	private function deleteTerms( $taxonomy ) {
-		$deletable_terms = get_terms([
-			'taxonomy' => $taxonomy,
-			'meta_key' => '_wpa_seeder_inserted_at',
-			'hide_empty' => false,
-		]);
+		$terms = Helpers::get_inserted_terms( $assoc_args['taxonomy'] );
 
-		$progress = Utils\make_progress_bar( 'Deleting seeded terms', count( $deletable_terms ) );
+		$progress = Utils\make_progress_bar( 'Deleting seeded terms', count( $terms ) );
 
-		foreach( $deletable_terms as $term ) {
-			wp_delete_term( $term->term_id, $term->taxonomy );
+		foreach( $terms as $term ) {
+			$result = wp_delete_term( $term->term_id, $term->taxonomy );
 
 			$progress->tick();
 		}

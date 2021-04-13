@@ -22,4 +22,13 @@ class Helpers {
 			'meta_key' => '_wpa_seeder_inserted_at',
 		]);
 	}
+
+	public static function get_inserted_terms( $taxonomy, $fields = 'all' ) {
+		return get_terms([
+			'taxonomy' => $taxonomy,
+			'hide_empty' => false,
+			'fields' => $fields,
+			'meta_key' => '_wpa_seeder_inserted_at',
+		]);
+	}
 }
