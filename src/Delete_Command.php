@@ -6,6 +6,9 @@ use WP_CLI\Utils;
 use WPastronaut\WP_CLI\Seeder\Helpers;
 
 class Delete_Command {
+	/**
+	 * Deletes all seeded content.
+	*/
 	public function all( $args, $assoc_args ) {
 		\WP_CLI::confirm( "Are you sure you want to delete all seeded data from the site?", $assoc_args );
 
