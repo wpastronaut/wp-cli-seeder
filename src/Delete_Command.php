@@ -37,7 +37,7 @@ class Delete_Command {
 	}
 
 	private function deletePosts( $post_type ) {
-		$post_ids = Helpers::get_inserted_post_ids( $post_type );
+		$post_ids = Helpers::get_inserted_posts( $post_type, 'ids' );
 
 		$progress = Utils\make_progress_bar( 'Deleting seeded posts', count( $post_ids ) );
 

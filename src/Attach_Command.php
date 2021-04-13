@@ -34,7 +34,7 @@ class Attach_Command {
 			WP_CLI::error( sprintf( 'Taxonomy "%s" doesn\'t exist', $assoc_args['taxonomy'] ) );
 		}
 
-		$post_ids = Helpers::get_inserted_post_ids( $assoc_args['post_type'] );
+		$post_ids = Helpers::get_inserted_posts( $assoc_args['post_type'], 'ids' );
 		$term_ids = Helpers::get_inserted_terms( $assoc_args['taxonomy'], 'ids' );
 
 		$progress = Utils\make_progress_bar( sprintf( 'Attaching terms from the taxonomy "%s" for the post type "%s"', $assoc_args['taxonomy'], $assoc_args['post_type'] ), $assoc_args['count'] );

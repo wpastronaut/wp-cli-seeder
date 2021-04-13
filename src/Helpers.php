@@ -13,12 +13,12 @@ class Helpers {
 		return ( wp_rand( 1, 10 ) === 1 );
 	}
 
-	public static function get_inserted_post_ids( $post_type ) {
+	public static function get_inserted_posts( $post_type, $fields = 'all' ) {
 		return get_posts([
 			'post_type' => $post_type,
 			'post_status' => 'any',
 			'posts_per_page' => '-1',
-			'fields' => 'ids',
+			'fields' => $fields,
 			'meta_key' => '_wpa_seeder_inserted_at',
 		]);
 	}
