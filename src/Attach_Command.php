@@ -34,13 +34,7 @@ class Attach_Command {
 			WP_CLI::error( sprintf( 'Taxonomy "%s" doesn\'t exist', $assoc_args['taxonomy'] ) );
 		}
 
-		$post_ids = get_posts([
-			'post_type' => $assoc_args['post_type'],
-			'post_status' => 'any',
-			'posts_per_page' => '-1',
-			'fields' => 'ids',
-			'meta_key' => '_wpa_seeder_inserted_at',
-		]);
+		$post_ids = Helpers::get_inserted_post_ids( $assoc_args['post_type'] );
 
 		$term_ids = get_terms([
 			'taxonomy' => $assoc_args['taxonomy'],

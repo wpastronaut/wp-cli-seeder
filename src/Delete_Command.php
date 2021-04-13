@@ -3,6 +3,7 @@
 namespace WPastronaut\WP_CLI\Seeder;
 
 use WP_CLI\Utils;
+use WPastronaut\WP_CLI\Seeder\Helpers;
 
 class Delete_Command {
 	public function all( $args, $assoc_args ) {
@@ -36,17 +37,11 @@ class Delete_Command {
 	}
 
 	private function deletePosts( $post_type ) {
-		$deletable_post_ids = get_posts([
-			'post_type' => $post_type,
-			'post_status' => 'any',
-			'posts_per_page' => '-1',
-			'fields' => 'ids',
-			'meta_key' => '_wpa_seeder_inserted_at',
-		]);
+		$post_ids = Helpers::get_inserted_post_ids( $post_type );
 
-		$progress = Utils\make_progress_bar( 'Deleting seeded posts', count( $deletable_post_ids ) );
+		$progress = Utils\make_progress_bar( 'Deleting seeded posts', count( $post_ids ) );
 
-		foreach( $deletable_post_ids as $post_id ) {
+		foreach( $post_ids as $post_id ) {
 			wp_delete_post( $post_id );
 
 			$progress->tick();
