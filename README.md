@@ -78,7 +78,7 @@ default: 1\
 
 	wp seeder attach terms-to-posts
 
-Attaches seeded terms to seeded posts.
+Attach seeded terms to seeded posts.
 
 #### Options
 
