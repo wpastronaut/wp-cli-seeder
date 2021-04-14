@@ -2,19 +2,12 @@
 
 namespace WPastronaut\WP_CLI\Seeder;
 
-use Faker;
 use WP_CLI;
 use WP_CLI\Utils;
 use WPastronaut\WP_CLI\Seeder\Helpers;
 use WP_CLI\Fetchers\User as UserFetcher;
 
 class Seed_Command {
-	private $faker;
-
-	public function __construct() {
-		$this->faker = Faker\Factory::create();
-	}
-
 	/**
 	 * Seed dummy posts.
 	 *
@@ -51,14 +44,16 @@ class Seed_Command {
 	 * ---
 	*/
 	public function posts( $args, $assoc_args ) {
+		if( ! post_type_exists( $assoc_args['post_type'] ) ) {
+			WP_CLI::error( sprintf( "Post type %s doesn't exist", $assoc_args['post_type'] ) );
+		}
+
+		$faker = Helpers::faker();
+
 		$post_args = [
 			'post_type' => $assoc_args['post_type'],
 			'post_status' => $assoc_args['post_status'],
 		];
-
-		if( ! post_type_exists( $post_args['post_type'] ) ) {
-			WP_CLI::error( sprintf( "Post type %s doesn't exist", $post_args['post_type'] ) );
-		}
 
 		if ( $assoc_args['post_author'] ) {
 			$user_fetcher = new UserFetcher();
@@ -84,10 +79,10 @@ class Seed_Command {
 				}
 			}
 
-			$post_args['post_title'] = ucfirst( $this->faker->words( $this->faker->numberBetween( 3, 7 ), true ) );
-			$post_args['post_excerpt'] = $this->faker->optional( '0.7', '' )->sentence( $this->faker->numberBetween( 10, 25 ) );
-			$post_args['post_content'] = $this->faker->paragraphs( $this->faker->numberBetween( 1, 10 ), true );
-			$post_args['post_date'] = $this->faker->dateTimeBetween('-3 years')->format('Y-m-d H:i:m');
+			$post_args['post_title'] = ucfirst( $faker->words( $faker->numberBetween( 3, 7 ), true ) );
+			$post_args['post_excerpt'] = $faker->optional( '0.7', '' )->sentence( $faker->numberBetween( 10, 25 ) );
+			$post_args['post_content'] = $faker->paragraphs( $faker->numberBetween( 1, 10 ), true );
+			$post_args['post_date'] = $faker->dateTimeBetween('-3 years')->format('Y-m-d H:i:m');
 			$post_args['post_parent'] = $current_parent;
 
 			$post_id = wp_insert_post( $post_args, true );
@@ -136,6 +131,8 @@ class Seed_Command {
 			WP_CLI::error( sprintf( "Taxonomy %s doesn't exist", $assoc_args['taxonomy'] ) );
 		}
 
+		$faker = Helpers::faker();
+
 		$progress = Utils\make_progress_bar( sprintf( 'Seeding terms for taxonomy: %s', $assoc_args['taxonomy'] ), $assoc_args['count'] );
 
 		$previous_term_id = 0;
@@ -143,7 +140,7 @@ class Seed_Command {
 		$current_parent = 0;
 
 		foreach( range( 0, $assoc_args['count'] ) as $index ) {
-			$term_name = ucfirst( $this->faker->words( $this->faker->numberBetween( 1, 3 ), true ) );
+			$term_name = ucfirst( $faker->words( $faker->numberBetween( 1, 3 ), true ) );
 
 			if( term_exists( $term_name, $assoc_args['taxonomy'] ) ) {
 				continue;
@@ -161,7 +158,7 @@ class Seed_Command {
 
 			$term_args = [
 				'parent' => $current_parent,
-				'description' => $this->faker->optional( '0.7', '' )->paragraph( $this->faker->numberBetween( 2, 6 ) ),
+				'description' => $faker->optional( '0.7', '' )->paragraph( $faker->numberBetween( 2, 6 ) ),
 			];
 			$term = wp_insert_term( $term_name, $assoc_args['taxonomy'], $term_args );
 

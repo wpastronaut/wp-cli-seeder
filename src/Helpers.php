@@ -31,4 +31,12 @@ class Helpers {
 			'meta_key' => '_wpa_seeder_inserted_at',
 		]);
 	}
+
+	public static function faker( $locale = false ) {
+		if( $locale ) {
+			return \Faker\Factory::create( $locale );
+		}
+
+		return \Faker\Factory::create();
+	}
 }
