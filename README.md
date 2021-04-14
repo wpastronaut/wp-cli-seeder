@@ -6,6 +6,30 @@ Seeds dummy content into a WordPress installation for development purposes.
 
 	wp package install git@github.com:wpastronaut/wp-cli-seeder.git
 
+## Examples of usage
+
+Seed to default posts and categories:
+
+```
+wp seeder seed posts
+wp seeder seed terms
+wp seeder attach terms-to-posts
+```
+
+Seed to pages:
+
+```
+wp seeder seed posts --post_type="page" --max_depth=4
+```
+
+Seed to custom post type "news" and to custom taxonomy "news_category":
+
+```
+wp seeder seed posts --post_type="news"
+wp seeder seed terms --taxonomy="news_category"
+wp seeder attach terms-to-posts --post_type="news" --taxonomy="news_category"
+```
+
 ## Seed
 
 ### Posts
