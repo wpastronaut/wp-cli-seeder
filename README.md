@@ -141,6 +141,7 @@ Post type.\
 \-\-\-\
 default: any\
 \-\-\-
+
 ### Terms
 
 	wp seeder delete terms
