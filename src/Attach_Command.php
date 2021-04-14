@@ -7,7 +7,7 @@ use WP_CLI\Utils;
 
 class Attach_Command {
 	/**
-	 * Attach terms to posts.
+	 * Attach seeded terms to seeded posts.
 	 *
 	 * ## OPTIONS
 	 *
