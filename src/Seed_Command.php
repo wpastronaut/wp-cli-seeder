@@ -101,11 +101,11 @@ class Seed_Command {
 
 			$previous_post_id = $post_id;
 
+			update_post_meta( $post_id, '_wpa_seeder_inserted_at', time() );
+
 			if( $assoc_args['lang'] && function_exists( 'pll_set_post_language' ) ) {
 				pll_set_post_language( $post_id, $assoc_args['lang'] );
 			}
-
-			update_post_meta( $post_id, '_wpa_seeder_inserted_at', time() );
 
 			$progress->tick();
 		}
