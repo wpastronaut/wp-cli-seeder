@@ -37,6 +37,12 @@ class Seed_Command {
 	 * default:
 	 * ---
 	 *
+	 * [--lang=<lang>]
+	 * : Post language.
+	 * ---
+	 * default:
+	 * ---
+	 *
 	 * [--max_depth=<number>]
 	 * : Max child depth for hierachial post types.
 	 * ---
@@ -94,6 +100,10 @@ class Seed_Command {
 			}
 
 			$previous_post_id = $post_id;
+
+			if( $assoc_args['lang'] && function_exists( 'pll_set_post_language' ) ) {
+				pll_set_post_language( $post_id, $assoc_args['lang'] );
+			}
 
 			update_post_meta( $post_id, '_wpa_seeder_inserted_at', time() );
 
