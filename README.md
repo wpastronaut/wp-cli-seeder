@@ -30,6 +30,14 @@ wp seeder seed terms --taxonomy="news_category"
 wp seeder attach terms-to-posts --post_type="news" --taxonomy="news_category"
 ```
 
+Target different languages (currently supports only [Polylang](https://wordpress.org/plugins/polylang/)):
+
+```
+wp seeder seed posts --post_type="news" --lang="sv_SE"
+wp seeder seed terms --taxonomy="news_category" --lang="sv_SE"
+wp seeder attach terms-to-posts --post_type="news" --taxonomy="news_category" --lang="sv_SE"
+```
+
 ## Seed
 
 ### Posts
