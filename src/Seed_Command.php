@@ -130,6 +130,12 @@ class Seed_Command {
 	 * default: category
 	 * ---
 	 *
+	 * [--lang=<lang>]
+	 * : Term language.
+	 * ---
+	 * default:
+	 * ---
+	 *
 	 * [--max_depth=<number>]
 	 * : Max child depth for hierachial taxonomies.
 	 * ---
@@ -181,6 +187,10 @@ class Seed_Command {
 			$previous_term_id = $term['term_id'];
 
 			update_term_meta( $term['term_id'], '_wpa_seeder_inserted_at', time() );
+
+			if( $assoc_args['lang'] && function_exists( 'pll_set_term_language' ) ) {
+				pll_set_term_language( $term['term_id'], $assoc_args['lang'] );
+			}
 
 			$progress->tick();
 		}

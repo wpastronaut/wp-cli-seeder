@@ -104,6 +104,20 @@ Taxonomy.\
 default: category\
 \-\-\-
 
+**[--lang=&#x3C;lang&#x3E;]**\
+Term language.
+
+Currently supports only [Polylang](https://wordpress.org/plugins/polylang/).
+
+Supported values for Polylang:
+
+- 2 digit ISO 639-1 code (eg. sv)
+- 2 digit ISO 639-1 code with locale suffix separated with an underscore (eg. sv_SE)
+
+\-\-\-\
+default:\
+\-\-\-
+
 **[--max_depth=&#x3C;number&#x3E;]**\
 Max child depth for hierachial post types.\
 \-\-\-\
