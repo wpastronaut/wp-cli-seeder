@@ -23,6 +23,12 @@ class Attach_Command {
 	 * default: category
 	 * ---
 	 *
+	 * [--lang=<lang>]
+	 * : Language of the posts and terms you want to attach.
+	 * ---
+	 * default:
+	 * ---
+	 *
 	 * @alias terms-to-posts
 	*/
 	public function terms_to_posts( $args, $assoc_args ) {
@@ -34,8 +40,8 @@ class Attach_Command {
 			WP_CLI::error( sprintf( 'Taxonomy "%s" doesn\'t exist', $assoc_args['taxonomy'] ) );
 		}
 
-		$post_ids = Helpers::get_inserted_posts( $assoc_args['post_type'], 'ids' );
-		$term_ids = Helpers::get_inserted_terms( $assoc_args['taxonomy'], 'ids' );
+		$post_ids = Helpers::get_inserted_posts( $assoc_args['post_type'], 'ids', $assoc_args['lang'] ?? '' );
+		$term_ids = Helpers::get_inserted_terms( $assoc_args['taxonomy'], 'ids', $assoc_args['lang'] ?? '' );
 
 		$progress = Utils\make_progress_bar( sprintf( 'Attaching terms from the taxonomy "%s" for the post type "%s"', $assoc_args['taxonomy'], $assoc_args['post_type'] ), $assoc_args['count'] );
 

@@ -146,6 +146,20 @@ Taxonomy.\
 default: category\
 \-\-\-
 
+**[--lang=&#x3C;lang&#x3E;]**\
+Language of the posts and terms you want to attach.
+
+Currently supports only [Polylang](https://wordpress.org/plugins/polylang/).
+
+Supported values for Polylang:
+
+- 2 digit ISO 639-1 code (eg. sv)
+- 2 digit ISO 639-1 code with locale suffix separated with an underscore (eg. sv_SE)
+
+\-\-\-\
+default:\
+\-\-\-
+
 ## Delete
 
 Please be aware that your client/co-worker might have used seeded content as a basis of some of real content, so you might accidentally delete some real content while using this command.
