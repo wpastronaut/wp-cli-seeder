@@ -55,16 +55,24 @@ class Delete_Command {
 	 * ---
 	 * default: any
 	 * ---
+	 *
+	 * [--lang=<lang>]
+	 * : Language of the terms you want to delete.
+	 * ---
+	 * default:
+	 * ---
 	*/
 	public function terms( $args, $assoc_args ) {
+		$lang = $assoc_args['lang'] ?? '';
+
 		if( $assoc_args['taxonomy'] === 'any' ) {
 			\WP_CLI::confirm( "Are you sure you want to delete all seeded terms from the site?", $assoc_args );
 
-			$this->deleteTerms( get_taxonomies() );
+			$this->deleteTerms( get_taxonomies(), $lang );
 		} else {
 			\WP_CLI::confirm( sprintf( 'Are you sure you want to delete all seeded terms in the taxonomy "%s" from the site?', $assoc_args['taxonomy'] ), $assoc_args );
 
-			$this->deleteTerms( $assoc_args['taxonomy'] );
+			$this->deleteTerms( $assoc_args['taxonomy'], $lang );
 		}
 	}
 
@@ -82,8 +90,8 @@ class Delete_Command {
 		$progress->finish();
 	}
 
-	private function deleteTerms( $taxonomy ) {
-		$terms = Helpers::get_inserted_terms( $assoc_args['taxonomy'] );
+	private function deleteTerms( $taxonomy, $lang = '' ) {
+		$terms = Helpers::get_inserted_terms( $taxonomy, 'all', $lang );
 
 		$progress = Utils\make_progress_bar( 'Deleting seeded terms', count( $terms ) );
 
