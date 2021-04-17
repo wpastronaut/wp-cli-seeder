@@ -26,6 +26,12 @@ class Delete_Command {
 	 * ---
 	 * default: any
 	 * ---
+	 *
+	 * [--lang=<lang>]
+	 * : Language of the posts you want to delete.
+	 * ---
+	 * default:
+	 * ---
 	*/
 	public function posts( $args, $assoc_args ) {
 		if( $assoc_args['post_type'] === 'any' ) {
@@ -36,7 +42,7 @@ class Delete_Command {
 
 		\WP_CLI::confirm( $confirmation_message, $assoc_args );
 
-		$this->deletePosts( 'any' );
+		$this->deletePosts( 'any', $assoc_args['lang'] ?? '' );
 	}
 
 	/**
@@ -62,8 +68,8 @@ class Delete_Command {
 		}
 	}
 
-	private function deletePosts( $post_type ) {
-		$post_ids = Helpers::get_inserted_posts( $post_type, 'ids' );
+	private function deletePosts( $post_type, $lang = '' ) {
+		$post_ids = Helpers::get_inserted_posts( $post_type, 'ids', $lang );
 
 		$progress = Utils\make_progress_bar( 'Deleting seeded posts', count( $post_ids ) );
 

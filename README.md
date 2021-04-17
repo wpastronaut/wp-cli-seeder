@@ -184,6 +184,20 @@ Post type.\
 default: any\
 \-\-\-
 
+**[--lang=&#x3C;lang&#x3E;]**\
+Language of the posts you want to delete.
+
+Currently supports only [Polylang](https://wordpress.org/plugins/polylang/).
+
+Supported values for Polylang:
+
+- 2 digit ISO 639-1 code (eg. sv)
+- 2 digit ISO 639-1 code with locale suffix separated with an underscore (eg. sv_SE)
+
+\-\-\-\
+default:\
+\-\-\-
+
 ### Terms
 
 	wp seeder delete terms
