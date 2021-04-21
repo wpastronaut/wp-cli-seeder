@@ -44,6 +44,26 @@ class Helpers {
 		return get_terms( $args );
 	}
 
+	public static function get_inserted_media( $fields = 'all', $mime = false, $lang = '' ) {
+		$args = [
+			'post_type' => 'attachment',
+			'post_status' => 'inherit',
+			'posts_per_page' => '-1',
+			'fields' => $fields,
+			'meta_key' => '_wpa_seeder_inserted_at',
+		];
+
+		if( $mime ) {
+			$args['post_mime_type'] = $mime;
+		}
+
+		if( $lang && defined( 'POLYLANG_VERSION' ) ) {
+			$args['lang'] = $lang;
+		}
+
+		return get_posts( $args );
+	}
+
 	public static function get_images( $count ) {
 		$pdo = new \PDO("sqlite:".dirname(__DIR__)."/data.db");
 

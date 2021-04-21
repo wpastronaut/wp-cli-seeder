@@ -261,3 +261,25 @@ Supported values for Polylang:
 \-\-\-\
 default:\
 \-\-\-
+
+### Images
+
+	wp seeder delete images
+
+Deletes all images seeded by this tool.
+
+#### Options
+
+**[--lang=&#x3C;lang&#x3E;]**\
+Language of the images you want to delete.
+
+Currently supports only [Polylang](https://wordpress.org/plugins/polylang/).
+
+Supported values for Polylang:
+
+- 2 digit ISO 639-1 alpha-2 code (eg. sv)
+- 2 digit ISO 639-1 alpha-2 code combined with an ISO 3166-1 alpha-2 code separated with an underscore (eg. sv_SE)
+
+\-\-\-\
+default:\
+\-\-\-

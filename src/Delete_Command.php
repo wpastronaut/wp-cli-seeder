@@ -76,6 +76,23 @@ class Delete_Command {
 		}
 	}
 
+	/**
+	 * Deletes seeded dummy images.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--lang=<lang>]
+	 * : Language of the terms you want to delete.
+	 * ---
+	 * default:
+	 * ---
+	*/
+	public function images( $args, $assoc_args ) {
+		\WP_CLI::confirm( 'Are you sure you want to delete all seeded images from the site?', $assoc_args );
+
+		$this->deleteMedia( 'image/jpeg', $assoc_args['lang'] ?? '' );
+	}
+
 	private function deletePosts( $post_type, $lang = '' ) {
 		$post_ids = Helpers::get_inserted_posts( $post_type, 'ids', $lang );
 
@@ -97,6 +114,26 @@ class Delete_Command {
 
 		foreach( $terms as $term ) {
 			$result = wp_delete_term( $term->term_id, $term->taxonomy );
+
+			$progress->tick();
+		}
+
+		$progress->finish();
+	}
+
+	private function deleteMedia( $mime = false, $lang = '' ) {
+		$post_ids = Helpers::get_inserted_media( 'ids', $mime, $lang );
+
+		$name_map = [
+			'image/jpeg' => 'images',
+		];
+
+		$name = $name_map[$mime] ?? 'media';
+
+		$progress = Utils\make_progress_bar( sprintf( 'Deleting seeded %s', $name ), count( $post_ids ) );
+
+		foreach( $post_ids as $post_id ) {
+			wp_delete_post( $post_id );
 
 			$progress->tick();
 		}
