@@ -197,4 +197,59 @@ class Seed_Command {
 
 		$progress->finish();
 	}
+
+	/**
+	 * Seed dummy images.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--count=<count>]
+	 * : How many?
+	 * ---
+	 * default: 5
+	 * ---
+	 *
+	 * [--lang=<lang>]
+	 * : Image language.
+	 * ---
+	 * default:
+	 * ---
+	*/
+	public function images( $args, $assoc_args ) {
+		$count = intval( $assoc_args['count'] );
+
+		if( $count > 10 ) {
+			WP_CLI::error('You can\'t download currently more than 10 images at once');
+		}
+
+		if( $count < 1 ) {
+			WP_CLI::error('--count="" needs to be a number between 1-10');
+		}
+
+		$images = Helpers::get_images( 5 );
+
+		$progress = Utils\make_progress_bar( 'Downloading images', count( $images ) );
+
+		foreach( $images as $image ) {
+			$desc = 'By: ' . $image['author_name'];
+			$attachment_id = Helpers::download_file_to_media_library( $image['url'], $desc );
+
+			if( is_wp_error( $attachment_id ) ) {
+				WP_CLI::warning( $attachment_id );
+
+				continue;
+			}
+
+			update_post_meta( $attachment_id, '_wpa_seeder_image_orientation', $image['orientation'] );
+			update_post_meta( $attachment_id, '_wpa_seeder_inserted_at', time() );
+
+			if( $assoc_args['lang'] && function_exists( 'pll_set_post_language' ) ) {
+				pll_set_post_language( $attachment_id, $assoc_args['lang'] );
+			}
+
+			$progress->tick();
+		}
+
+		$progress->finish();
+	}
 }

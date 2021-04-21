@@ -44,6 +44,51 @@ class Helpers {
 		return get_terms( $args );
 	}
 
+	public static function get_images( $count ) {
+		$pdo = new \PDO("sqlite:".dirname(__DIR__)."/data.db");
+
+		$query = $pdo->prepare('SELECT url, orientation, author_name, author_url FROM images ORDER BY RANDOM() LIMIT :count');
+
+		$query->execute([
+			'count' => 5,
+		]);
+
+		return $query->fetchAll(\PDO::FETCH_ASSOC);
+	}
+
+	public static function download_file_to_media_library( $url, $desc = null ) {
+		if( empty( $url ) ) {
+			return new \WP_Error( 'error', 'File url is empty' );
+		}
+
+		$file_array = [];
+
+		preg_match( '/[^\?]+\.(jpe?g|jpe)\b/i', $url, $matches );
+
+		$file_array = [
+			'name' => basename( $matches[0] ),
+			'tmp_name' => download_url( $url ),
+		];
+
+		if ( is_wp_error( $file_array['tmp_name'] ) ) {
+			return new \WP_Error( 'error', 'Error while trying to store file temporarily' );
+		}
+
+		$id = media_handle_sideload( $file_array, 0, $desc );
+
+		if ( is_wp_error( $id ) ) {
+			unlink( $file_array['tmp_name'] );
+
+			return new \WP_Error( 'error', 'Couldn\'t store file permanently' );
+		}
+
+		if ( empty( $id ) ) {
+			return new \WP_Error( 'error', "File upload ID is empty" );
+		}
+
+		return $id;
+	}
+
 	public static function faker( $locale = false ) {
 		if( $locale ) {
 			return \Faker\Factory::create( $locale );

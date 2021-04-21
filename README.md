@@ -132,6 +132,34 @@ Max child depth for hierachial post types.\
 default: 1\
 \-\-\-
 
+### Images
+
+	wp seeder seed images
+
+Seeds dummy images.
+
+#### Options
+
+**[--count=&#x3C;number&#x3E;]**\
+How many?\
+\-\-\-\
+default: 5\
+\-\-\-
+
+**[--lang=&#x3C;lang&#x3E;]**\
+Image language.
+
+Currently supports only [Polylang](https://wordpress.org/plugins/polylang/).
+
+Supported values for Polylang:
+
+- 2 digit ISO 639-1 alpha-2 code (eg. sv)
+- 2 digit ISO 639-1 alpha-2 code combined with an ISO 3166-1 alpha-2 code separated with an underscore (eg. sv_SE)
+
+\-\-\-\
+default:\
+\-\-\-
+
 ## Attach
 
 ### Terms to posts
