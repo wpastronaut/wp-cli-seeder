@@ -238,7 +238,7 @@ Please be aware that your client/co-worker might have used seeded content as a b
 
 	wp seeder delete all
 
-Deletes all content seeded by this tool. 
+Deletes all content seeded by this tool.
 
 ### Posts
 
