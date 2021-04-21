@@ -226,7 +226,7 @@ class Seed_Command {
 			WP_CLI::error('--count="" needs to be a number between 1-10');
 		}
 
-		$images = Helpers::get_images( 5 );
+		$images = Helpers::get_images( $assoc_args['count'] );
 
 		$progress = Utils\make_progress_bar( 'Downloading images', count( $images ) );
 

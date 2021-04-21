@@ -70,7 +70,7 @@ class Helpers {
 		$query = $pdo->prepare('SELECT url, orientation, author_name, author_url FROM images ORDER BY RANDOM() LIMIT :count');
 
 		$query->execute([
-			'count' => 5,
+			'count' => $count,
 		]);
 
 		return $query->fetchAll(\PDO::FETCH_ASSOC);
