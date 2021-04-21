@@ -8,12 +8,14 @@ Seeds dummy content into a WordPress installation for development purposes.
 
 ## Examples of usage
 
-Seed to default posts and categories:
+Seed to default posts and categories with images:
 
 ```
 wp seeder seed posts
 wp seeder seed terms
 wp seeder attach terms-to-posts
+wp seeder seed images
+wp seeder attach images-to-posts
 ```
 
 Seed to pages:
@@ -28,6 +30,8 @@ Seed to custom post type "news" and to custom taxonomy "news_category":
 wp seeder seed posts --post_type="news"
 wp seeder seed terms --taxonomy="news_category"
 wp seeder attach terms-to-posts --post_type="news" --taxonomy="news_category"
+wp seeder seed images
+wp seeder attach images-to-posts --post_type="news"
 ```
 
 Target different languages (currently supports only [Polylang](https://wordpress.org/plugins/polylang/)):
@@ -36,6 +40,8 @@ Target different languages (currently supports only [Polylang](https://wordpress
 wp seeder seed posts --post_type="news" --lang="sv_SE"
 wp seeder seed terms --taxonomy="news_category" --lang="sv_SE"
 wp seeder attach terms-to-posts --post_type="news" --taxonomy="news_category" --lang="sv_SE"
+wp seeder seed images --lang="sv_SE"
+wp seeder attach images-to-posts --post_type="news" --lang="sv_SE"
 ```
 
 ## Seed
