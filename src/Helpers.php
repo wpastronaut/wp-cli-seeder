@@ -44,7 +44,7 @@ class Helpers {
 		return get_terms( $args );
 	}
 
-	public static function get_inserted_media( $fields = 'all', $mime = false, $lang = '' ) {
+	public static function get_inserted_media( $mime = false, $fields = 'all', $lang = '' ) {
 		$args = [
 			'post_type' => 'attachment',
 			'post_status' => 'inherit',

@@ -84,7 +84,7 @@ class Attach_Command {
 		}
 
 		$post_ids = Helpers::get_inserted_posts( $assoc_args['post_type'], 'ids', $assoc_args['lang'] ?? '' );
-		$image_ids = Helpers::get_inserted_media( 'ids', 'image/jpeg', $assoc_args['lang'] ?? '' );
+		$image_ids = Helpers::get_inserted_media( 'image/jpeg', 'ids', $assoc_args['lang'] ?? '' );
 
 		$progress = Utils\make_progress_bar( sprintf( 'Attaching images to posts in the post type "%s"', $assoc_args['post_type'] ), $assoc_args['count'] );
 

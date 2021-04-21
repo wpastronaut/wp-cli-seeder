@@ -122,7 +122,7 @@ class Delete_Command {
 	}
 
 	private function deleteMedia( $mime = false, $lang = '' ) {
-		$post_ids = Helpers::get_inserted_media( 'ids', $mime, $lang );
+		$post_ids = Helpers::get_inserted_media( $mime, 'ids', $lang );
 
 		$name_map = [
 			'image/jpeg' => 'images',
