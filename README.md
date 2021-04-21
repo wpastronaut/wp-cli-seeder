@@ -196,6 +196,34 @@ Supported values for Polylang:
 default:\
 \-\-\-
 
+### Images to posts
+
+	wp seeder attach images-to-posts
+
+Attach seeded images to seeded posts as featured images.
+
+#### Options
+
+**[--post_type=&#x3C;type&#x3E;]**\
+Post type.\
+\-\-\-\
+default: post\
+\-\-\-
+
+**[--lang=&#x3C;lang&#x3E;]**\
+Language of the posts and images you want to attach.
+
+Currently supports only [Polylang](https://wordpress.org/plugins/polylang/).
+
+Supported values for Polylang:
+
+- 2 digit ISO 639-1 alpha-2 code (eg. sv)
+- 2 digit ISO 639-1 alpha-2 code combined with an ISO 3166-1 alpha-2 code separated with an underscore (eg. sv_SE)
+
+\-\-\-\
+default:\
+\-\-\-
+
 ## Delete
 
 Please be aware that your client/co-worker might have used seeded content as a basis of some of real content, so you might accidentally delete some real content while using this command.

@@ -54,4 +54,46 @@ class Attach_Command {
 
 		$progress->finish();
 	}
+
+	/**
+	 * Attach seeded images to seeded posts as featured images.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--post_type=<type>]
+	 * : Post type.
+	 * ---
+	 * default: post
+	 * ---
+	 *
+	 * [--lang=<lang>]
+	 * : Language of the posts and images you want to attach.
+	 * ---
+	 * default:
+	 * ---
+	 *
+	 * @alias images-to-posts
+	*/
+	public function images_to_posts( $args, $assoc_args ) {
+		if( ! post_type_exists( $assoc_args['post_type'] ) ) {
+			WP_CLI::error( sprintf( 'Post type "%s" doesn\'t exist', $assoc_args['post_type'] ) );
+		}
+
+		if( ! post_type_supports( $assoc_args['post_type'], 'thumbnail' ) ) {
+			WP_CLI::error( sprintf( 'Post type "%s" doesn\'t support currently featured images', $assoc_args['post_type'] ) );
+		}
+
+		$post_ids = Helpers::get_inserted_posts( $assoc_args['post_type'], 'ids', $assoc_args['lang'] ?? '' );
+		$image_ids = Helpers::get_inserted_media( 'ids', 'image/jpeg', $assoc_args['lang'] ?? '' );
+
+		$progress = Utils\make_progress_bar( sprintf( 'Attaching images to posts in the post type "%s"', $assoc_args['post_type'] ), $assoc_args['count'] );
+
+		foreach( $post_ids as $post_id ) {
+			set_post_thumbnail( $post_id, $image_ids[array_rand( $image_ids )] );
+
+			$progress->tick();
+		}
+
+		$progress->finish();
+	}
 }
