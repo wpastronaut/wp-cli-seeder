@@ -24,7 +24,7 @@ class Attach_Command {
 	 * ---
 	 *
 	 * [--lang=<lang>]
-	 * : Language of the posts and terms you want to attach.
+	 * : Language of the terms and posts you want to attach.
 	 * ---
 	 * default:
 	 * ---
@@ -67,7 +67,7 @@ class Attach_Command {
 	 * ---
 	 *
 	 * [--lang=<lang>]
-	 * : Language of the posts and images you want to attach.
+	 * : Language of the images and posts you want to attach.
 	 * ---
 	 * default:
 	 * ---

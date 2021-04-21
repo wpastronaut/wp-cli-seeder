@@ -183,7 +183,7 @@ default: category\
 \-\-\-
 
 **[--lang=&#x3C;lang&#x3E;]**\
-Language of the posts and terms you want to attach.
+Language of the terms and posts you want to attach.
 
 Currently supports only [Polylang](https://wordpress.org/plugins/polylang/).
 
@@ -211,7 +211,7 @@ default: post\
 \-\-\-
 
 **[--lang=&#x3C;lang&#x3E;]**\
-Language of the posts and images you want to attach.
+Language of the images and posts you want to attach.
 
 Currently supports only [Polylang](https://wordpress.org/plugins/polylang/).
 
