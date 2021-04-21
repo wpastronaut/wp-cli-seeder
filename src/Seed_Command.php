@@ -216,6 +216,13 @@ class Seed_Command {
 	 * ---
 	*/
 	public function images( $args, $assoc_args ) {
+		$confirmation_message = 'Terms and conditions:' . "\n\n" .
+		'- All the copyrights of the images downloaded with this command belongs to their respectfully owners. ' .
+		'You may only use them as development placeholders.' . "\n\n" .
+		'- Your IP address is going to be logged into the logs of the server hosting the images to prevent abuse.' . "\n\n" .
+		'Are you ok with these terms? :)';
+		\WP_CLI::confirm( $confirmation_message, $assoc_args );
+
 		$count = intval( $assoc_args['count'] );
 
 		if( $count > 10 ) {
