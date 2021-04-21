@@ -228,6 +228,8 @@ class Seed_Command {
 
 		$images = Helpers::get_images( $assoc_args['count'] );
 
+		$error = false;
+
 		$progress = Utils\make_progress_bar( 'Downloading images', count( $images ) );
 
 		foreach( $images as $image ) {
@@ -236,6 +238,8 @@ class Seed_Command {
 
 			if( is_wp_error( $attachment_id ) ) {
 				WP_CLI::warning( $attachment_id );
+
+				$error = true;
 
 				continue;
 			}
@@ -251,5 +255,17 @@ class Seed_Command {
 		}
 
 		$progress->finish();
+
+		if( $error ) {
+			$error_message = 'There was an error while trying to download image(s). This is probably caused by one of the following reasons:' . "\n\n" .
+			'1.) The image hosting server is down.' . "\n\n" .
+			'2.) You\'re running and old version of wpastronaut/wp-cli-seeder and the images were purposefully removed after deprecating the old location. ' .
+			'You can check if there\'s an update by running:' . "\n\n" .
+			'    wp package list' . "\n\n" .
+			'and update by running:' . "\n\n" .
+			'    wp package update wpastronaut/wp-cli-seeder';
+
+			WP_CLI::error( $error_message );
+		}
 	}
 }

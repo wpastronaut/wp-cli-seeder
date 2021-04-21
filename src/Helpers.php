@@ -91,7 +91,7 @@ class Helpers {
 		];
 
 		if ( is_wp_error( $file_array['tmp_name'] ) ) {
-			return new \WP_Error( 'error', 'Error while trying to store file temporarily' );
+			return new \WP_Error( 'error', 'Error while trying to download file' );
 		}
 
 		$id = media_handle_sideload( $file_array, 0, $desc );
