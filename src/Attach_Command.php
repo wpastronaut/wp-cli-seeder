@@ -80,7 +80,7 @@ class Attach_Command {
 		}
 
 		if( ! post_type_supports( $assoc_args['post_type'], 'thumbnail' ) ) {
-			WP_CLI::error( sprintf( 'Post type "%s" doesn\'t support currently featured images', $assoc_args['post_type'] ) );
+			WP_CLI::error( sprintf( 'Post type "%s" doesn\'t support featured images currently', $assoc_args['post_type'] ) );
 		}
 
 		$post_ids = Helpers::get_inserted_posts( $assoc_args['post_type'], 'ids', $assoc_args['lang'] ?? '' );
