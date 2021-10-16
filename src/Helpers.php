@@ -44,6 +44,19 @@ class Helpers {
 		return get_terms( $args );
 	}
 
+	public static function get_random_term_ids( $term_ids ) {
+		$number_of_terms = mt_rand( 0, 4 );
+		$random_terms = [];
+
+		if( $number_of_terms === 1 ) {
+			$random_terms = [array_rand( $term_ids, 1 )];
+		} elseif( $number_of_terms > 1 ) {
+			$random_terms = array_rand( $term_ids, $number_of_terms );
+		}
+
+		return array_values( array_intersect_key( $term_ids, array_flip( $random_terms ) ) );
+	}
+
 	public static function get_inserted_media( $mime = false, $fields = 'all', $lang = '' ) {
 		$args = [
 			'post_type' => 'attachment',
