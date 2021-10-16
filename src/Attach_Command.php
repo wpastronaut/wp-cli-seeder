@@ -47,7 +47,7 @@ class Attach_Command {
 
 		foreach( $post_ids as $post_id ) {
 			$random_term_ids = Helpers::get_random_term_ids( $term_ids );
-			$terms = wp_set_object_terms( $post_id, $random_term_ids, $assoc_args['taxonomy'] );
+			wp_set_object_terms( $post_id, $random_term_ids, $assoc_args['taxonomy'] );
 
 			$progress->tick();
 		}
