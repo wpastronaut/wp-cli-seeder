@@ -46,7 +46,16 @@ class Attach_Command {
 		$progress = Utils\make_progress_bar( sprintf( 'Attaching terms from the taxonomy "%s" for the post type "%s"', $assoc_args['taxonomy'], $assoc_args['post_type'] ), $assoc_args['count'] );
 
 		foreach( $post_ids as $post_id ) {
-			$random_term_ids = array_values( array_intersect_key( $term_ids, array_flip( array_rand( $term_ids, mt_rand( 0, 4 ) ) ) ) );
+			$number_of_terms = mt_rand( 0, 4 );
+			if ( $number_of_terms > 1 ) {
+				$random_terms = array_rand( $term_ids, $number_of_terms );
+			} elseif ( 1 === $number_of_terms ) {
+				$random_terms = array( array_rand( $term_ids, 1 ) );
+			} else {
+				$random_terms = array();
+			}
+
+			$random_term_ids = array_values( array_intersect_key( $term_ids, array_flip( $random_terms ) ) );
 			$terms = wp_set_object_terms( $post_id, $random_term_ids, $assoc_args['taxonomy'] );
 
 			$progress->tick();
